@@ -2,7 +2,7 @@
     "patients": [
         {
             "name": "Shreyansh Jain",
-            "email": "shreyansh.qriocity@gmail.com",
+            "email": "shreyansh@gmail.com",
             "age": 22,
             "sex": "Male",
             "password": "e10adc3949ba59abbe56e057f20f883e",
@@ -32,7 +32,7 @@
         },
         {
             "name": "test",
-            "email": "ayush.qriocity@gmail.com",
+            "email": "ayush004@gmail.com",
             "age": 9,
             "sex": "Male",
             "password": "25d55ad283aa400af464c76d713c07ad",
