@@ -1,0 +1,242 @@
+[
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "streamlit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "session_state",
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "isExtraImport": true,
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "smtplib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "smtplib",
+        "description": "smtplib",
+        "detail": "smtplib",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "string",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "string",
+        "description": "string",
+        "detail": "string",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "datetime",
+        "description": "datetime",
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
+        "documentation": {}
+    },
+    {
+        "label": "Drug_addiction_therapist",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def Drug_addiction_therapist(name, age, sex, previous_question=None, previous_answer=None):\n    try:\n        client = OpenAI(\n            api_key=os.environ.get(\"OPENAI_API_KEY\"),\n        )\n        prompt = f\"\"\"\n        You are a Drug addiction therapist and you are consulting a patient named {name} aged {age} and {sex}, who is addicted drugs and exhibiting substance use disorder.\n        As a therapist, your role is to guide the patient through a conversation to understand their condition better and provide appropriate medical advice. You should maintain a professional and empathetic tone throughout the interaction.\n        Please ask the patient about the details of the drugs they have been consuming, how long they have been addicted, and any relevant information about their condition. Additionally, provide necessary precautions and recommendations.\n        Your prompt should encourage the patient to respond, and you should wait for their reply before asking further questions.",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "generate_medical_report",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def generate_medical_report(name, age, sex,previous_questions=None, previous_responses=None):\n    try:\n        client = OpenAI(\n            api_key=os.environ.get(\"OPENAI_API_KEY\"),\n        )\n        prompt = f\"Patient: {name}\\n\\nAge: {age}\\n\\n Sex: {sex}\"\n        if previous_questions and previous_responses:\n            for question, response in zip(previous_questions, previous_responses):\n                prompt += f\"Doctor: {question}\\nPatient: {response}\\n\\n\"\n        else:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "user_exists",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def user_exists(email, json_file_path):\n    # Function to check if user with the given email exists\n    with open(json_file_path, \"r\") as file:\n        users = json.load(file)\n        for user in users[\"patients\"]:\n            if user[\"email\"] == email:\n                return True\n    return False\ndef send_verification_code(email, code):\n    SENDER_MAIL_ID = os.getenv(\"SENDER_MAIL_ID\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "send_verification_code",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def send_verification_code(email, code):\n    SENDER_MAIL_ID = os.getenv(\"SENDER_MAIL_ID\")\n    APP_PASSWORD = os.getenv(\"APP_PASSWORD\")\n    RECEIVER = email\n    server = smtplib.SMTP_SSL(\"smtp.googlemail.com\", 465)\n    server.login(SENDER_MAIL_ID, APP_PASSWORD)\n    message = f\"Subject: Your Verification Code\\n\\nYour verification code is: {code}\"\n    server.sendmail(SENDER_MAIL_ID, RECEIVER, message)\n    server.quit()\n    st.success(\"Email sent successfully!\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "generate_verification_code",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def generate_verification_code(length=6):\n    return \"\".join(random.choices(string.ascii_uppercase + string.digits, k=length))\ndef signup(json_file_path=\"patients.json\"):\n    st.title(\"Student Signup Page\")\n    with st.form(\"signup_form\"):\n        st.write(\"Fill in the details below to create an account:\")\n        name = st.text_input(\"Name:\")\n        email = st.text_input(\"Email:\")\n        age = st.number_input(\"Age:\", min_value=0, max_value=120)\n        sex = st.radio(\"Sex:\", (\"Male\", \"Female\", \"Other\"))",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "signup",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def signup(json_file_path=\"patients.json\"):\n    st.title(\"Student Signup Page\")\n    with st.form(\"signup_form\"):\n        st.write(\"Fill in the details below to create an account:\")\n        name = st.text_input(\"Name:\")\n        email = st.text_input(\"Email:\")\n        age = st.number_input(\"Age:\", min_value=0, max_value=120)\n        sex = st.radio(\"Sex:\", (\"Male\", \"Female\", \"Other\"))\n        password = st.text_input(\"Password:\", type=\"password\")\n        confirm_password = st.text_input(\"Confirm Password:\", type=\"password\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "check_login",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def check_login(username, password, json_file_path=\"evaluator.json\"):\n    try:\n        with open(json_file_path, \"r\") as json_file:\n            data = json.load(json_file)\n        for user in data[\"patients\"]:\n            if user[\"email\"] == username and user[\"password\"] == password:\n                session_state[\"logged_in\"] = True\n                session_state[\"user_info\"] = user\n                st.success(\"Login successful!\")\n                return user",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "initialize_database",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def initialize_database(json_file_path=\"patients.json\"):\n    try:\n        if not os.path.exists(json_file_path):\n            data = {\"patients\": []}\n            with open(json_file_path, \"w\") as json_file:\n                json.dump(data, json_file)\n    except Exception as e:\n        print(f\"Error initializing database: {e}\")\ndef create_account(name, email, age, sex, password, json_file_path=\"patients.json\"):\n    try:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "create_account",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def create_account(name, email, age, sex, password, json_file_path=\"patients.json\"):\n    try:\n        if not os.path.exists(json_file_path) or os.stat(json_file_path).st_size == 0:\n            data = {\"patients\": []}\n        else:\n            with open(json_file_path, \"r\") as json_file:\n                data = json.load(json_file)\n        # Append new user data to the JSON structure\n        email = email.lower()\n        password = hashlib.md5(password.encode()).hexdigest()",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "login",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def login(json_file_path=\"evaluator.json\"):\n    st.title(\"Login Page\")\n    username = st.text_input(\"Email:\")\n    password = st.text_input(\"Password:\", type=\"password\")\n    username = username.lower()\n    password = hashlib.md5(password.encode()).hexdigest()\n    login_button = st.button(\"Login\")\n    if login_button:\n        user = check_login(username, password, json_file_path)\n        if user is not None:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_info",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_user_info(email, json_file_path=\"evaluator.json\"):\n    try:\n        with open(json_file_path, \"r\") as json_file:\n            data = json.load(json_file)\n            for user in data[\"patients\"]:\n                if user[\"email\"] == email:\n                    return user\n        return None\n    except Exception as e:\n        st.error(f\"Error getting user information: {e}\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "render_dashboard",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def render_dashboard(user_info, json_file_path=\"evaluator.json\"):\n    try:\n        st.title(f\"Welcome to the Dashboard, {user_info['name']}!\")\n        st.subheader(\"Student Information\")\n        st.write(f\"Name: {user_info['name']}\")\n        st.write(f\"Sex: {user_info['sex']}\")\n        st.write(f\"Age: {user_info['age']}\")\n    except Exception as e:\n        st.error(f\"Error rendering dashboard: {e}\")\ndef main(json_file_path=\"patients.json\"):",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def main(json_file_path=\"patients.json\"):\n    st.header(\"Welcome to the Patient's Dashboard!\")\n    page = st.sidebar.radio(\n        \"Go to\",\n        (\n            \"Signup/Login\",\n            \"Dashboard\",\n            \"Expert Consultation\",\n            \"View Medical Report\",\n        ),",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "session_state",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "session_state = st.session_state\nif \"user_index\" not in st.session_state:\n    st.session_state[\"user_index\"] = 0\nload_dotenv()\nimport random\ndef Drug_addiction_therapist(name, age, sex, previous_question=None, previous_answer=None):\n    try:\n        client = OpenAI(\n            api_key=os.environ.get(\"OPENAI_API_KEY\"),\n        )",
+        "detail": "app",
+        "documentation": {}
+    }
+]
